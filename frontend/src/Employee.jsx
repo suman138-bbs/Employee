@@ -1,13 +1,15 @@
+import './index.css'
 import axios from 'axios'
 import React, { useEffect, useState } from 'react'
 import { Link } from 'react-router-dom'
 const Employee = () => {
-    const [data, setData] = useState([]);
+  const [data, setData] = useState([]);
+  const [message,setMessage] = useState('')
         useEffect(() => {
             try {
                 const getData = async() => {
                 const res = await axios.get('http://localhost:8080/getEmployees');
-                console.log(res.data.Result)
+               
                 setData(res.data.Result)
                 
             }
@@ -15,18 +17,24 @@ const Employee = () => {
             } catch (error) {
                 console.log(error)
             }
-        }, [])
-    const handleDelete = () => {
-        
+        }, [message])
+    const handleDelete = async(id) => {
+      try {
+        const res = await axios.delete('http://localhost:8080/deleteEmployee/'+ id)
+        console.log("From Backend", res)
+        setMessage(res)
+      } catch (error) {
+        console.log(error)
+      }
     }
   return (
-    <div className='px-5 py-3'>
+    <div className='px-5 py-3 '>
       <div className='d-flex justify-content-center mt-2'>
         <h3>Employee List</h3>
       </div>
       <Link to="/create" className='btn btn-success'>Add Employee</Link>
-      <div className='mt-3'>
-        <table className='table'>
+      <div className='mt-3 '>
+        <table className='table '>
           <thead>
             <tr>
               <th>Name</th>
@@ -37,7 +45,7 @@ const Employee = () => {
               <th>Action</th>
             </tr>
           </thead>
-          <tbody>
+          <tbody className=''>
             {data.map(({email,address,salary, name, id,image }) => {
               return <tr key={id}>
                   <td>{name}</td>

@@ -43,6 +43,38 @@ con.connect(function (err) {
         console.log("connected")
     }
 })
+app.post('/editEmployee/:userId', (req, res) => {
+    const id = req.params.userId;
+    const sql = "UPDATE employee SET email = ?,name = ?,address = ?,salary = ? WHERE id = ?";
+    const data = [
+        req.body.email,
+        req.body.name,
+        req.body.address,
+        req.body.salary,
+        id,
+        
+
+    ]
+    con.query(sql, data, (err,result) => {
+        if (err) return res.json({ Message: err.message })
+        return res.json({
+            Status: "Success",
+            Message:result
+        })
+    }
+    )
+    
+
+})
+
+app.get('/get/:userId', (req,res) => {
+    const id = req.params.userId;
+    const sql = 'SELECT * FROM employee where id = ?'
+    con.query(sql, id, (err,result) => {
+        if (err) return res.json({ Error: err.message })
+        return res.json({Status:"Success",Result:result})
+    })
+})
 
 app.get('/getEmployees', (req,res) => {
     const sql = 'SELECT * FROM employee';
@@ -91,6 +123,18 @@ app.post('/create',upload.single('image'), (req, res) => {
     })
 })
 
+
+app.delete('/deleteEmployee/:userId', (req, res) => {
+    console.log("Delete Api Hit")
+    const id = req.params.userId
+    
+    const sql = "DELETE FROM employee WHERE id=?";
+    con.query(sql, id, (err,result) => {
+        if (err) return res.json({ Error: Error.message })
+        return res.json({Message:result})
+    })
+
+})
 
 app.listen(8080, () => {
     console.log(`server running at PORT 8080`)

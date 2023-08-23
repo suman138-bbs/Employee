@@ -4,3 +4,19 @@
   background-repeat: no-repeat;
   
 } */
+@import url('https://fonts.googleapis.com/css2?family=Bebas+Neue&family=Montserrat:wght@600&display=swap');
+*{
+  font-family: Montserrat;
+}
+
+.dashbord-left{
+  background-color: #3867d6;
+}
+
+.dashbord-right{
+  background-color: #95afc0;
+}
+
+.dashbord-right-d{
+  background-color: #535c68;
+}
