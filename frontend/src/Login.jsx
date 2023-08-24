@@ -7,8 +7,9 @@ const Login = () => {
     const navigate = useNavigate()
     const [values, setValues] = useState({
         email: 'sumanbhandari9860@gmail.com',
-        password:'12345678'
+        password:''
     })
+    axios.defaults.withCredentials = true;
     const [error,setError] = useState(null)
     const handleSubmit = async(event) => {
         event.preventDefault()

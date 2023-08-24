@@ -1,10 +1,38 @@
-import { Outlet, Link } from 'react-router-dom'
+import { Outlet, Link, useNavigate } from 'react-router-dom'
 import 'bootstrap-icons/font/bootstrap-icons.css'
 import './index.css'
+import { useEffect } from 'react'
+import axios from 'axios'
 const Dashbord = () => {
-    const handleLogout = () => {
-        
-    }
+	const navigate = useNavigate();
+	axios.defaults.withCredentials = true;
+	useEffect(() => {
+		const getDashbord = async() => {
+			const res = await axios.get('http://localhost:8080/dashbord');
+			if (res.data.Status === "Success") {
+				
+
+			}
+			else {
+				navigate('/login')
+			}
+		}
+		
+		getDashbord()
+	},[])
+
+	const handleLogout = async (e) => {
+		e.preventDefault()
+		const res = await axios.get('http://localhost:8080/logout')
+		console.log(res)
+		if (res.data.Status === 'Success')
+		{
+			navigate('login')
+			}
+		
+	}
+	
+
   return (
     <div className="container-fluid">
 			<div className="row flex-nowrap">
@@ -27,7 +55,7 @@ const Dashbord = () => {
 									<i className="fs-4 bi-person"></i> <span className="ms-1 d-none d-sm-inline">Profile</span></Link>
 							</li>
 							<li onClick={handleLogout}>
-								<a href="#" className="nav-link px-0 align-middle text-white">
+								<a href="" className="nav-link px-0 align-middle text-white">
 									<i className="fs-4 bi-power"></i> <span className="ms-1 d-none d-sm-inline">Logout</span></a>
 							</li>
 						</ul>

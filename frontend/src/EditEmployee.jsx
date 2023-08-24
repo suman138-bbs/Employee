@@ -15,7 +15,7 @@ const EditEmployee = () => {
 		const getEmployeeDetail = async() => {
 			const res = await axios.get('http://localhost:8080/get/' + id)
 			console.log(res.data.Result[0])
-			setData(res.data.Result[0])
+			setData({ ...data, ...res.data.Result[0] })
 		}
 		getEmployeeDetail()
 	},[])
@@ -26,7 +26,7 @@ const EditEmployee = () => {
         
         
         try {
-            const res = await axios.post('http://localhost:8080/editEmployee/'+id, data);
+            const res = await axios.put('http://localhost:8080/editEmployee/'+id, data);
             if(res.data.Status=="Success") navigate('/employee')
 
         } catch (error) {
