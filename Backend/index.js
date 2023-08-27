@@ -99,6 +99,7 @@ const verifyUser = (req,res,next) => {
     } else {
         Jwt.verify(token, "jwt-secret-key", (err, decoded) => {
             if (err) return res.json({ Error: "Wrong token" })
+            req.role=decoded.role
             next()
         })
     }
@@ -141,26 +142,51 @@ app.get('/totalSalary', (req, res) => {
 
 
 app.get('/dashbord', verifyUser,(req,res) => {
-   return res.json({Status:"Success"})
+   return res.json({Status:"Success",role:req.role})
 })
+
 app.post('/login', (req, res) => {
     const sql = "SELECT * FROM users Where email=? AND password=?";
-    con.query(sql, [req.body.email, req.body.password], (err,result) => {
-        if (err) return res.json({ Status: err, Message: err.message });
-        if (result.length > 0) {
-            const id = result[0].ID;
-            const token = Jwt.sign({ id }, "jwt-secret-key", { expiresIn: "1d" })
-            res.cookie('token',token)
-            return res.json({Status:"Success"})
+     con.query(sql, [req.body.email, req.body.password], (err, result) => {
+        if(err) return res.json({Status: "Error", Error: "Error in runnig query"});
+        if(result.length > 0) {
+            const id = result[0].id;
+            const token = Jwt.sign({role: "admin"}, "jwt-secret-key", {expiresIn: '5m'});
+            res.cookie('token', token);
+            return res.json({Status: "Success"})
+        } else {
+            return res.json({Status: "Error", Error: "Wrong Email or Password"});
         }
-        else
-        { 
-            console.log('Not Match')
-            return res.json({Status:"Error! ",Message:"Your email or password is incorrect "})
-        }
-            
     })
 })
+
+
+app.post('/employeelogin', (req, res) => {
+    console.log("Employee Url Hit")
+    const sql = "SELECT * FROM employee Where email=?";
+     con.query(sql, [req.body.email], (err, result) => {
+        if(err) return res.json({Status: "Error", Error: "Error in runnig query"});
+         if (result.length > 0) {
+             bcrypt.compare(req.body.password.toString(), result[0].password, (err,response) => {
+                 if (err) return res.send({ Error: err.message })
+                 if (response) {
+                     const id = result[0].id;
+                    const token = Jwt.sign({role: "admin"}, "jwt-secret-key", {expiresIn: '5m'});
+                    res.cookie('token', token);
+                    return res.json({Status: "Success"})
+
+                 }
+            })
+            
+        } else {
+            return res.json({Status: "Error", Error: "Wrong Email or Password"});
+        }
+    })
+})
+
+
+
+
 
 app.get('/logout', (req, res) => {
     res.clearCookie('token')
@@ -200,6 +226,9 @@ app.delete('/deleteEmployee/:userId', (req, res) => {
     })
 
 })
+
+
+// app.get('/employee')
 
 app.listen(8080, () => {
     console.log(`server running at PORT 8080`)

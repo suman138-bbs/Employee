@@ -9,12 +9,18 @@ const Dashbord = () => {
 	useEffect(() => {
 		const getDashbord = async() => {
 			const res = await axios.get('http://localhost:8080/dashbord');
+			console.log(res)
 			if (res.data.Status === "Success") {
-				
+				if (res.data.role === "admin") {
+					navigate('/')
+				 }
+				else {
+					navigate('/employeeDetail')
+				}
 
 			}
 			else {
-				navigate('/login')
+				navigate('/start')
 			}
 		}
 		
@@ -27,8 +33,8 @@ const Dashbord = () => {
 		console.log(res)
 		if (res.data.Status === 'Success')
 		{
-			navigate('login')
-			}
+			navigate('/start')
+		}
 		
 	}
 	

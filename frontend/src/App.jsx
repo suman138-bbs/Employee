@@ -8,6 +8,9 @@ import Profile from './Profile'
 import Home from './Home'
 import AddEmployee from './AddEmployee'
 import EditEmployee from './EditEmployee'
+import Start from './Start'
+import EmployeeLogin from './EmployeeLogin'
+import EmployeeDetail from './EmployeeDetail'
 const App = () => {
   return (
     <div className='main-container'>
@@ -20,6 +23,9 @@ const App = () => {
           <Route path='/employeeEdit/:id' element = {<EditEmployee/>}/>
       </Route>
         <Route path='/login' element={<Login/>}/>
+        <Route path='/start' element={<Start/>}/>
+        <Route path='/employeeLogin' element={<EmployeeLogin/>}/>
+        <Route path='/employeeDetail' element={<EmployeeDetail/>}/>
       </Routes>
       
     </div>
