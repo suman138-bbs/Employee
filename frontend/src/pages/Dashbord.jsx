@@ -1,6 +1,6 @@
 import { Outlet, Link, useNavigate } from 'react-router-dom'
 import 'bootstrap-icons/font/bootstrap-icons.css'
-import './index.css'
+import '../index.css'
 import { useEffect } from 'react'
 import axios from 'axios'
 const Dashbord = () => {

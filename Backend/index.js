@@ -1,11 +1,12 @@
 import express from 'express';
-import mysql from 'mysql';
 import cors from 'cors'
 import cookieParser from 'cookie-parser';
 import bcrypt from 'bcrypt'
 import Jwt from 'jsonwebtoken';
 import multer from 'multer';
 import path from 'path';
+import con from './config/index.js';
+
 
 const app = express();
 app.use(cors(
@@ -20,13 +21,7 @@ app.use(express.static('public'))
 
 
 
-const con = mysql.createConnection({
-    host: '127.0.0.1',
-    user: 'root',
-    password: 'bhairav98',
-    insecureAuth: true,
-    database:'signup'
-})
+
 
 const storage = multer.diskStorage({
     destination: (req, file, cb) => {

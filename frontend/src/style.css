@@ -5,9 +5,11 @@
     background-size: cover;
 }
 
+
 .loginForm {
-    background-color: #14091a;
+    background-color: transparent #1256d3;
     color: white;
+    box-shadow: 0em 0em 2em 2em #191e22;
 }
 
 .employee_image {
