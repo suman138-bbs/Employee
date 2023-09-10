@@ -9,7 +9,8 @@ const EditEmployee = () => {
         name:'',
         email:'',
         salary:'',
-        address:''
+		address: '',
+		department:'',
 	})
 	useEffect(() => {
 		const getEmployeeDetail = async() => {
@@ -56,6 +57,11 @@ const EditEmployee = () => {
 					<label for="inputAddress" class="form-label">Address</label>
 					<input type="text" class="form-control" id="inputAddress" placeholder="1234 Main St" autoComplete='off'
 					onChange={e => setData({...data, address: e.target.value})} value={data.address}/>
+			  </div>
+			  <div class="col-12">
+					<label for="inputAddress" class="form-label">Department</label>
+					<input type="text" class="form-control" id="inputAddress" placeholder="Software Engineer" autoComplete='off'
+					onChange={e => setData({...data, department: e.target.value})} value={data.department}/>
 				</div>
 				<div class="col-12">
 					<button type="submit" class="btn btn-primary">Update</button>

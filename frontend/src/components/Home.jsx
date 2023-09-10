@@ -6,7 +6,7 @@ const Home = () => {
    const [salary, setSalary] = useState(1)
   useEffect(() => {
     const getAdminCount = async() => {
-			const res = await axios.get('http://localhost:8080/admitCount')
+			const res = await axios.get('http://localhost:8080/adminCount')
 			setAdminCount(res.data.result[0].admin)
     }
     const getEmployeeCount= async() => {

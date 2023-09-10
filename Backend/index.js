@@ -9,12 +9,11 @@ import con from './config/index.js';
 
 
 const app = express();
-app.use(cors(
-    {
-        origin: ["http://localhost:5173/"],
-        credentials:true
-    }
-))
+app.use(cors({
+  origin: ["http://localhost:5173"],
+  credentials: true
+}));
+
 app.use(cookieParser());
 app.use(express.json())
 app.use(express.static('public'))
@@ -45,12 +44,13 @@ con.connect(function (err) {
 })
 app.put('/editEmployee/:userId', (req, res) => {
     const id = req.params.userId;
-    const sql = "UPDATE employee SET email = ?,name = ?,address = ?,salary = ? WHERE id = ?";
+    const sql = "UPDATE employee SET email = ?,name = ?,address = ?,salary = ?,department=? WHERE id = ?";
     const data = [
         req.body.email,
         req.body.name,
         req.body.address,
         req.body.salary,
+        req.body.department,
         id,
         
 
@@ -190,7 +190,7 @@ app.get('/logout', (req, res) => {
 
 
 app.post('/create',upload.single('image'), (req, res) => {
-    const sql = "INSERT INTO employee (`email`,`name`,`password`,`image`,`address`,`salary`) VALUES (?, ?, ?, ?, ?, ?)";
+    const sql = "INSERT INTO employee (`email`,`name`,`password`,`image`,`address`,`department`,`salary`) VALUES (?, ?, ?, ?, ?, ?, ?)";
 
     bcrypt.hash(req.body.password.toString(), 10, (err,hash) => {
         if (err) return res.json({ Error: 'Error in Hashing Password' }) 
@@ -200,6 +200,7 @@ app.post('/create',upload.single('image'), (req, res) => {
             hash,
             req.file.filename,
             req.body.address,
+            req.body.department,
             req.body.salary
         ]
         con.query(sql, values, (err, result) => {

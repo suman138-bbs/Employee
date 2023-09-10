@@ -12,6 +12,7 @@ const AddEmployee = () => {
         formdata.append("password",data.password)
         formdata.append("address",data.address)
         formdata.append("salary",data.salary)
+        formdata.append("department",data.department)
         formdata.append("image", data.image)
         try {
             const res = await axios.post('http://localhost:8080/create', formdata);
@@ -58,6 +59,11 @@ const AddEmployee = () => {
 					<label for="inputAddress" class="form-label">Address</label>
 					<input type="text" class="form-control" id="inputAddress" placeholder="1234 Main St" autoComplete='off'
 					onChange={e => setData({...data, address: e.target.value})}/>
+			  </div>
+			  <div class="col-12">
+					<label for="inputAddress" class="form-label">Department</label>
+					<input type="text" class="form-control" id="inputAddress" placeholder="1234 Main St" autoComplete='off'
+					onChange={e => setData({...data, department: e.target.value})}/>
 				</div>
 				<div class="col-12 mb-3">
 					<label class="form-label" for="inputGroupFile01">Select Image</label>

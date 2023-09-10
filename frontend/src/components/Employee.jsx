@@ -42,11 +42,12 @@ const Employee = () => {
               <th>Email</th>
               <th>Address</th>
               <th>Salary</th>
+              <th>Department</th>
               <th>Action</th>
             </tr>
           </thead>
           <tbody className=''>
-            {data.map(({email,address,salary, name, id,image }) => {
+            {data.map(({email,address,salary, name, id,image,department }) => {
               return <tr key={id}>
                   <td>{name}</td>
                   <td>{
@@ -55,6 +56,7 @@ const Employee = () => {
                   <td>{email}</td>
                   <td>{address}</td>
                   <td>{salary}</td>
+                  <td>{department}</td>
                   <td>
                     <Link to={`/employeeEdit/`+id} className='btn btn-primary btn-sm me-2'>edit</Link>
                     <button onClick={e => handleDelete(id)} className='btn btn-sm btn-danger'>delete</button>
