@@ -100,7 +100,7 @@ const verifyUser = (req,res,next) => {
     }
 }
 
-app.get('/admitCount', (req, res) => {
+app.get('/adminCount', (req, res) => {
     const sql = 'SELECT count(id) as admin from users';
     con.query(sql, (err, result) => {
         if (err) res.json({ Error: err.message })
@@ -168,7 +168,7 @@ app.post('/employeelogin', (req, res) => {
                      const id = result[0].id;
                     const token = Jwt.sign({role: "admin"}, "jwt-secret-key", {expiresIn: '5m'});
                     res.cookie('token', token);
-                    return res.json({Status: "Success"})
+                    return res.json({Status: "Success",Result:result})
 
                  }
             })
@@ -224,7 +224,14 @@ app.delete('/deleteEmployee/:userId', (req, res) => {
 })
 
 
-// app.get('/employee')
+app.get('/employeeDetail', (req, res) => {
+    const email = req.body.email;
+    const sql = "SELECT * FROM EMPLOYEE WHERE email=?"
+    con.query(sql, email, (err, result) => {
+        if (err) return res.send({ 'Error': err })
+        console.log(result)
+    })
+})
 
 app.listen(8080, () => {
     console.log(`server running at PORT 8080`)

@@ -13,9 +13,11 @@ const EmployeeLogin = () => {
         event.preventDefault()
         try {
             const res = await axios.post('http://localhost:8080/employeelogin', values)
-            console.log(res)
-            if (res.data.Status==='Success') {
-                navigate('/employeeDetail')
+            
+            if (res.data.Status === 'Success') {
+                console.log(res.data.Result[0].id)
+                const id = res.data.Result[0].id
+                navigate('/employeeDetail/'+id)
             } else {
                 setError(res.data.Message);
             }
