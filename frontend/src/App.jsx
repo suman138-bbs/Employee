@@ -18,7 +18,7 @@ const App = () => {
         <Route path='/' element={<Dashbord />}>
           <Route index element = {<Home/>}/>
           <Route path='employee' element = {<Employee/>}/>
-          <Route path='profile' element={<Profile />} />
+          <Route path='profile/:eid' element={<Profile />} />
           <Route path='create' element = {<AddEmployee/>}/>
           <Route path='/employeeEdit/:id' element = {<EditEmployee/>}/>
       </Route>

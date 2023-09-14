@@ -189,11 +189,33 @@ app.get('/logout', (req, res) => {
 })
 
 
-app.post('/create',upload.single('image'), (req, res) => {
-    const sql = "INSERT INTO employee (`email`,`name`,`password`,`image`,`address`,`department`,`salary`) VALUES (?, ?, ?, ?, ?, ?, ?)";
+// app.post('/create',upload.single('image'), (req, res) => {
+//     const sql = "INSERT INTO employee (`email`,`name`,`password`,`image`,`address`,`department`,`salary`) VALUES (?, ?, ?, ?, ?, ?, ?)";
 
-    bcrypt.hash(req.body.password.toString(), 10, (err,hash) => {
-        if (err) return res.json({ Error: 'Error in Hashing Password' }) 
+//     bcrypt.hash(req.body.password.toString(), 10, (err,hash) => {
+//         if (err) return res.json({ Error: 'Error in Hashing Password' })
+//         const values = [
+//             req.body.email,
+//             req.body.name,
+//             hash,
+//             req.file.filename,
+//             req.body.address,
+//             req.body.department,
+//             req.body.salary
+//         ]
+//         con.query(sql, values, (err, result) => {
+//             if (err) return res.json({ Error: err.message })
+//             return res.json({Status:"Success"})
+//         })
+//     })
+// })
+
+app.post('/create', upload.single('image'), (req, res) => {
+    const sql = "INSERT INTO employee (`email`, `name`, `password`, `image`, `address`, `department`, `salary`, `age`, `gender`, `contact`, `education`, `post`, `training`) VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?)";
+
+    bcrypt.hash(req.body.password.toString(), 10, (err, hash) => {
+        if (err) return res.json({ Error: 'Error in Hashing Password' });
+
         const values = [
             req.body.email,
             req.body.name,
@@ -201,14 +223,22 @@ app.post('/create',upload.single('image'), (req, res) => {
             req.file.filename,
             req.body.address,
             req.body.department,
-            req.body.salary
-        ]
+            req.body.salary,
+            req.body.age,
+            req.body.gender,
+            req.body.contact,
+            req.body.education,
+            req.body.post,
+            req.body.training
+        ];
+
         con.query(sql, values, (err, result) => {
-            if (err) return res.json({ Error: err.message })
-            return res.json({Status:"Success"})
-        })
-    })
-})
+            if (err) return res.json({ Error: err.message });
+            return res.json({ Status: "Success" });
+        });
+    });
+});
+
 
 
 app.delete('/deleteEmployee/:userId', (req, res) => {

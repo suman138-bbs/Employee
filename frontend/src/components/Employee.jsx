@@ -33,7 +33,7 @@ const Employee = () => {
         <h3>Employee List</h3>
       </div>
       <Link to="/create" className='btn btn-success'>Add Employee</Link>
-      <div className='mt-3 '>
+      <div className='mt-3 bg-white employee-list-container'>
         <table className='table '>
           <thead>
             <tr>
@@ -49,7 +49,7 @@ const Employee = () => {
           <tbody className=''>
             {data.map(({email,address,salary, name, id,image,department }) => {
               return <tr key={id}>
-                  <td>{name}</td>
+                 <Link to={`/profile/${id}`}> <td>{name}</td></Link>
                   <td>{
                     <img src={`http://localhost:8080/images/`+image} alt="" className='employee_image'/>
                     }</td>
