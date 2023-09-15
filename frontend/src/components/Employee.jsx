@@ -43,7 +43,7 @@ const Employee = () => {
       <div style={{ display: 'flex', gap:'41em'}}>
         <Link to='/create' className='btn btn-success'>Add Employee</Link>
         <input
-          style={{borderRadius:"0.5em", backgroundColor:"#082a6e" ,border:'none',padding:'0.5em'}}
+          style={{borderRadius:"0.5em", backgroundColor:"#a2a9b5" ,border:'1px solid black',padding:'0.5em'}}
           type='text'
           placeholder='Search by name'
           value={searchQuery}
