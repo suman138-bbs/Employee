@@ -6,7 +6,7 @@ import { useNavigate} from 'react-router-dom';
 const Login = () => {
     const navigate = useNavigate()
     const [values, setValues] = useState({
-        email: 'sumanbhandari9860@gmail.com',
+        email: '',
         password:''
     })
     axios.defaults.withCredentials = true;
