@@ -25,3 +25,10 @@
   background:transparent;
   color: #3867d6;
 }
+
+.profile-container{
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+}
